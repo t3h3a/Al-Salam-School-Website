@@ -7,6 +7,11 @@ import {
 } from "./local-store.js";
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
 import {
+  getAuth,
+  onAuthStateChanged,
+  signInAnonymously,
+} from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
+import {
   collection,
   getFirestore,
   onSnapshot,
@@ -220,21 +225,39 @@ function isFirebaseConfigured() {
   );
 }
 
-function init() {
-  applyLocalData(false);
+function ensureViewerAuth(app) {
+  const auth = getAuth(app);
+  return new Promise(function (resolve) {
+    const unsubscribe = onAuthStateChanged(auth, function (user) {
+      unsubscribe();
+      if (user) {
+        resolve({ ok: true });
+        return;
+      }
+      signInAnonymously(auth)
+        .then(function () {
+          resolve({ ok: true });
+        })
+        .catch(function (error) {
+          resolve({ ok: false, error: error });
+        });
+    });
+  });
+}
 
-  if (!isFirebaseConfigured()) {
-    setLoading(false);
-    if (emptyState && students.length === 0) {
+function handleFirestoreError(error) {
+  applyLocalData(true);
+  const code = error && error.code ? error.code : "";
+  if (code === "permission-denied" && emptyState) {
+    if (students.length === 0 && artworks.length === 0) {
       emptyState.hidden = false;
-      emptyState.textContent = "يرجى تحديث إعدادات Firebase في config.js";
+      emptyState.textContent =
+        "لا توجد صلاحية لقراءة البيانات. يرجى تحديث قواعد Firestore أو تفعيل تسجيل الدخول المجهول.";
     }
-    return;
   }
+}
 
-  const app = initializeApp(firebaseConfig);
-  const db = getFirestore(app);
-
+function startRealtimeListeners(db) {
   const studentsRef = collection(db, "students");
   const artworksRef = collection(db, "artworks");
 
@@ -258,8 +281,8 @@ function init() {
       dataReady.students = true;
       renderGallery();
     },
-    function () {
-      applyLocalData(true);
+    function (error) {
+      handleFirestoreError(error);
     }
   );
 
@@ -283,10 +306,30 @@ function init() {
       dataReady.artworks = true;
       renderGallery();
     },
-    function () {
-      applyLocalData(true);
+    function (error) {
+      handleFirestoreError(error);
     }
   );
+}
+
+function init() {
+  applyLocalData(false);
+
+  if (!isFirebaseConfigured()) {
+    setLoading(false);
+    if (emptyState && students.length === 0) {
+      emptyState.hidden = false;
+      emptyState.textContent = "يرجى تحديث إعدادات Firebase في config.js";
+    }
+    return;
+  }
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+  ensureViewerAuth(app).then(function () {
+    startRealtimeListeners(db);
+  });
 
   window.addEventListener("storage", function (event) {
     if (event.key && !event.key.startsWith("btec_")) {

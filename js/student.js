@@ -2,6 +2,11 @@ import { firebaseConfig } from "./config.js";
 import { loadDeletedIds, loadLocalData } from "./local-store.js";
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
 import {
+  getAuth,
+  onAuthStateChanged,
+  signInAnonymously,
+} from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
+import {
   collection,
   doc,
   getDoc,
@@ -69,6 +74,40 @@ function isFirebaseConfigured() {
     configValid(firebaseConfig.apiKey) &&
     configValid(firebaseConfig.projectId)
   );
+}
+
+function ensureViewerAuth(app) {
+  const auth = getAuth(app);
+  return new Promise(function (resolve) {
+    const unsubscribe = onAuthStateChanged(auth, function (user) {
+      unsubscribe();
+      if (user) {
+        resolve({ ok: true });
+        return;
+      }
+      signInAnonymously(auth)
+        .then(function () {
+          resolve({ ok: true });
+        })
+        .catch(function (error) {
+          resolve({ ok: false, error: error });
+        });
+    });
+  });
+}
+
+function handleFirestoreError(error, localSnapshot) {
+  if (localSnapshot && localSnapshot.localStudent) {
+    return;
+  }
+  const code = error && error.code ? error.code : "";
+  if (code === "permission-denied") {
+    setEmpty(
+      "لا توجد صلاحية لقراءة البيانات. يرجى تحديث قواعد Firestore أو تفعيل تسجيل الدخول المجهول."
+    );
+    return;
+  }
+  setEmpty("حدث خطأ أثناء جلب البيانات.");
 }
 
 function getVideoPoster(url) {
@@ -287,6 +326,43 @@ function getLocalSnapshot() {
   return { localStudent, localArtworks, deletedIds, isDeleted };
 }
 
+async function fetchStudentFromFirestore(db, localSnapshot) {
+  try {
+    const studentRef = doc(db, "students", studentId);
+    const studentSnap = await getDoc(studentRef);
+
+    if (!studentSnap.exists()) {
+      if (!localSnapshot.localStudent) {
+        setLoading(false);
+        setEmpty("لم يتم العثور على الطالبة المطلوبة.");
+      }
+      return;
+    }
+
+    const student = studentSnap.data();
+    const artQuery = query(
+      collection(db, "artworks"),
+      where("studentId", "==", studentId)
+    );
+    const artSnap = await getDocs(artQuery);
+    const artworks = artSnap.docs.map(function (docItem) {
+      return { id: docItem.id, ...docItem.data() };
+    });
+    const mergedArtworks = mergeWithLocal(
+      artworks,
+      localSnapshot.localArtworks
+    ).filter(function (item) {
+      return !localSnapshot.deletedIds.artworks.includes(item.id);
+    });
+    applyStudentData(student, mergedArtworks);
+  } catch (error) {
+    if (!localSnapshot.localStudent) {
+      setLoading(false);
+      handleFirestoreError(error, localSnapshot);
+    }
+  }
+}
+
 async function init() {
   if (!studentId) {
     setLoading(false);
@@ -332,40 +408,9 @@ async function init() {
 
   setLoading(true);
 
-  try {
-    const studentRef = doc(db, "students", studentId);
-    const studentSnap = await getDoc(studentRef);
-
-    if (!studentSnap.exists()) {
-      if (!localStudent) {
-        setLoading(false);
-        setEmpty("لم يتم العثور على الطالبة المطلوبة.");
-      }
-      return;
-    }
-
-    const student = studentSnap.data();
-    const artQuery = query(
-      collection(db, "artworks"),
-      where("studentId", "==", studentId)
-    );
-    const artSnap = await getDocs(artQuery);
-    const artworks = artSnap.docs.map(function (docItem) {
-      return { id: docItem.id, ...docItem.data() };
-    });
-    const mergedArtworks = mergeWithLocal(
-      artworks,
-      localSnapshot.localArtworks
-    ).filter(function (item) {
-      return !localSnapshot.deletedIds.artworks.includes(item.id);
-    });
-    applyStudentData(student, mergedArtworks);
-  } catch (error) {
-    if (!localSnapshot.localStudent) {
-      setLoading(false);
-      setEmpty("حدث خطأ أثناء جلب البيانات.");
-    }
-  }
+  ensureViewerAuth(app).then(function () {
+    fetchStudentFromFirestore(db, localSnapshot);
+  });
 }
 
 init();
