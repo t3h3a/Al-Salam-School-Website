@@ -7,11 +7,6 @@ import {
 } from "./local-store.js";
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
 import {
-  getAuth,
-  onAuthStateChanged,
-  signInAnonymously,
-} from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
-import {
   collection,
   getFirestore,
   onSnapshot,
@@ -225,26 +220,6 @@ function isFirebaseConfigured() {
   );
 }
 
-function ensureViewerAuth(app) {
-  const auth = getAuth(app);
-  return new Promise(function (resolve) {
-    const unsubscribe = onAuthStateChanged(auth, function (user) {
-      unsubscribe();
-      if (user) {
-        resolve({ ok: true });
-        return;
-      }
-      signInAnonymously(auth)
-        .then(function () {
-          resolve({ ok: true });
-        })
-        .catch(function (error) {
-          resolve({ ok: false, error: error });
-        });
-    });
-  });
-}
-
 function handleFirestoreError(error) {
   applyLocalData(true);
   const code = error && error.code ? error.code : "";
@@ -327,9 +302,7 @@ function init() {
   const app = initializeApp(firebaseConfig);
   const db = getFirestore(app);
 
-  ensureViewerAuth(app).then(function () {
-    startRealtimeListeners(db);
-  });
+  startRealtimeListeners(db);
 
   window.addEventListener("storage", function (event) {
     if (event.key && !event.key.startsWith("btec_")) {

@@ -126,6 +126,11 @@ function isDataUrl(value) {
   return typeof value === "string" && value.startsWith("data:");
 }
 
+function isPermissionError(error) {
+  const code = error && error.code ? error.code : "";
+  return code === "permission-denied" || code === "unauthenticated";
+}
+
 function updateLocalArtwork(artworkId, updates) {
   if (!artworkId) {
     return [];
@@ -755,10 +760,28 @@ async function deleteStudent(studentId, db) {
     return;
   }
   try {
-    markStudentDeleted(studentId);
+    const artQuery = query(
+      collection(db, "artworks"),
+      where("studentId", "==", studentId)
+    );
+    const artSnap = await getDocs(artQuery);
+    const deletes = artSnap.docs.map(function (item) {
+      return deleteDoc(item.ref);
+    });
+    await Promise.all(deletes);
+    await deleteDoc(doc(db, "students", studentId));
   } catch (error) {
-    // Ignore local storage errors and continue with in-memory removal.
+    if (isPermissionError(error)) {
+      showToast(
+        "لا توجد صلاحية لحذف الطالبة. تأكدي من تسجيل دخول الأدمن وقواعد Firestore.",
+        "error"
+      );
+      return;
+    }
+    showToast("تعذر حذف الطالبة. حاولي مرة أخرى.", "error");
+    return;
   }
+
   let nextStudents = students.filter(function (item) {
     return item.id !== studentId;
   });
@@ -786,22 +809,7 @@ async function deleteStudent(studentId, db) {
   artworks = nextArtworks;
   renderStudentOptions();
   renderAdminStudents();
-  try {
-    const artQuery = query(
-      collection(db, "artworks"),
-      where("studentId", "==", studentId)
-    );
-    const artSnap = await getDocs(artQuery);
-    const deletes = artSnap.docs.map(function (item) {
-      return deleteDoc(item.ref);
-    });
-    await Promise.all(deletes);
-    await deleteDoc(doc(db, "students", studentId));
-    clearStudentDeleted(studentId);
-    showToast("تم حذف الطالبة والأعمال المرتبطة بها");
-  } catch (error) {
-    showToast("تم الحذف محليًا وسيتم إخفاؤه من العرض", "error");
-  }
+  showToast("تم حذف الطالبة والأعمال المرتبطة بها");
 }
 
 async function deleteArtwork(artworkId, db) {
@@ -810,10 +818,19 @@ async function deleteArtwork(artworkId, db) {
     return;
   }
   try {
-    markArtworkDeleted(artworkId);
+    await deleteDoc(doc(db, "artworks", artworkId));
   } catch (error) {
-    // Ignore local storage errors and continue with in-memory removal.
+    if (isPermissionError(error)) {
+      showToast(
+        "لا توجد صلاحية لحذف العمل. تأكدي من تسجيل دخول الأدمن وقواعد Firestore.",
+        "error"
+      );
+      return;
+    }
+    showToast("تعذر حذف العمل. حاولي مرة أخرى.", "error");
+    return;
   }
+
   let nextArtworks = artworks.filter(function (item) {
     return item.id !== artworkId;
   });
@@ -833,13 +850,7 @@ async function deleteArtwork(artworkId, db) {
   }
   artworks = nextArtworks;
   renderAdminStudents();
-  try {
-    await deleteDoc(doc(db, "artworks", artworkId));
-    clearArtworkDeleted(artworkId);
-    showToast("تم حذف العمل");
-  } catch (error) {
-    showToast("تم حذف العمل محليًا وسيختفي من العرض", "error");
-  }
+  showToast("تم حذف العمل");
 }
 
 function init() {
@@ -917,6 +928,14 @@ function init() {
           showToast("تمت إضافة الطالبة بنجاح");
         })
         .catch(function (error) {
+          if (isPermissionError(error)) {
+            updateProgress("student", 0, "");
+            showToast(
+              "لا توجد صلاحية لنشر البيانات. تأكدي من تسجيل دخول الأدمن وقواعد Firestore.",
+              "error"
+            );
+            return;
+          }
           Promise.resolve()
             .then(function () {
               return fileToDataUrl(coverFile);
@@ -1020,6 +1039,7 @@ function init() {
       const total = entries.length;
       let remoteCount = 0;
       let localCount = 0;
+      let permissionDenied = false;
 
       (async function () {
         for (let index = 0; index < entries.length; index += 1) {
@@ -1073,6 +1093,10 @@ function init() {
             }
             remoteCount += 1;
           } catch (error) {
+            if (isPermissionError(error)) {
+              permissionDenied = true;
+              throw error;
+            }
             const dataUrl = await fileToDataUrl(entry.file);
             const localPayload = {
               studentId,
@@ -1126,6 +1150,13 @@ function init() {
         })
         .catch(function (error) {
           updateProgress("artwork", 0, "");
+          if (permissionDenied || isPermissionError(error)) {
+            showToast(
+              "لا توجد صلاحية لنشر الأعمال. تأكدي من تسجيل دخول الأدمن وقواعد Firestore.",
+              "error"
+            );
+            return;
+          }
           showToast(error.message || "تعذر إضافة الأعمال", "error");
         });
     });
@@ -1308,6 +1339,13 @@ function init() {
             })
             .catch(function (error) {
               updateProgress("student", 0, "");
+              if (isPermissionError(error)) {
+                showToast(
+                  "لا توجد صلاحية لتعديل البيانات. تأكدي من تسجيل دخول الأدمن وقواعد Firestore.",
+                  "error"
+                );
+                return;
+              }
               Promise.resolve()
                 .then(async function () {
                   let coverUrl = null;

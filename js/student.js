@@ -2,11 +2,6 @@ import { firebaseConfig } from "./config.js";
 import { loadDeletedIds, loadLocalData } from "./local-store.js";
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
 import {
-  getAuth,
-  onAuthStateChanged,
-  signInAnonymously,
-} from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
-import {
   collection,
   doc,
   getDoc,
@@ -74,26 +69,6 @@ function isFirebaseConfigured() {
     configValid(firebaseConfig.apiKey) &&
     configValid(firebaseConfig.projectId)
   );
-}
-
-function ensureViewerAuth(app) {
-  const auth = getAuth(app);
-  return new Promise(function (resolve) {
-    const unsubscribe = onAuthStateChanged(auth, function (user) {
-      unsubscribe();
-      if (user) {
-        resolve({ ok: true });
-        return;
-      }
-      signInAnonymously(auth)
-        .then(function () {
-          resolve({ ok: true });
-        })
-        .catch(function (error) {
-          resolve({ ok: false, error: error });
-        });
-    });
-  });
 }
 
 function handleFirestoreError(error, localSnapshot) {
@@ -408,9 +383,7 @@ async function init() {
 
   setLoading(true);
 
-  ensureViewerAuth(app).then(function () {
-    fetchStudentFromFirestore(db, localSnapshot);
-  });
+  fetchStudentFromFirestore(db, localSnapshot);
 }
 
 init();
