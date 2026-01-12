@@ -31,6 +31,7 @@ import {
   orderBy,
   query,
   serverTimestamp,
+  setDoc,
   updateDoc,
   where,
 } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
@@ -50,6 +51,7 @@ let students = [];
 let artworks = [];
 let isAdmin = false;
 let bootstrapped = false;
+let isSyncingLocal = false;
 let studentsRef = null;
 let artworksRef = null;
 
@@ -120,6 +122,33 @@ function isCloudinaryConfigured() {
   );
 }
 
+function isDataUrl(value) {
+  return typeof value === "string" && value.startsWith("data:");
+}
+
+function updateLocalArtwork(artworkId, updates) {
+  if (!artworkId) {
+    return [];
+  }
+  const localData = loadLocalData();
+  const next = localData.artworks.map(function (art) {
+    if (art.id !== artworkId) {
+      return art;
+    }
+    const nextLocalOnly =
+      typeof updates.localOnly === "boolean" ? updates.localOnly : art.localOnly;
+    return {
+      ...art,
+      ...updates,
+      id: art.id,
+      createdAt: art.createdAt,
+      localOnly: Boolean(nextLocalOnly),
+    };
+  });
+  saveLocalArtworks(next);
+  return next;
+}
+
 async function uploadToCloudinary(file, onProgress, resourceType) {
   if (!isCloudinaryConfigured()) {
     throw new Error("يرجى تحديث إعدادات Cloudinary في config.js");
@@ -164,6 +193,174 @@ async function uploadToCloudinary(file, onProgress, resourceType) {
     xhr.open("POST", url, true);
     xhr.send(formData);
   });
+}
+
+async function syncLocalStudents() {
+  const localData = loadLocalData();
+  const localStudents = localData.students.filter(function (student) {
+    return student.localOnly;
+  });
+  if (!localStudents.length) {
+    return { synced: 0, failed: 0 };
+  }
+
+  const needsUpload = localStudents.some(function (student) {
+    return isDataUrl(student.coverUrl);
+  });
+  if (needsUpload && !isCloudinaryConfigured()) {
+    showToast("يرجى تحديث إعدادات Cloudinary حتى تتم المزامنة.", "error");
+    return { synced: 0, failed: localStudents.length };
+  }
+
+  let synced = 0;
+  for (let index = 0; index < localStudents.length; index += 1) {
+    const student = localStudents[index];
+    try {
+      let coverUrl = student.coverUrl || "";
+      if (isDataUrl(coverUrl)) {
+        const upload = await uploadToCloudinary(coverUrl, null, "image");
+        coverUrl = upload.secure_url;
+      }
+      await setDoc(doc(studentsRef, student.id), {
+        name: student.name || "",
+        category: student.category || "",
+        coverUrl: coverUrl,
+        createdAt: student.createdAt || Date.now(),
+      });
+      updateLocalStudent(student.id, {
+        coverUrl: coverUrl,
+        localOnly: false,
+      });
+      synced += 1;
+    } catch (error) {
+      // Keep local data for retry.
+    }
+  }
+
+  return { synced: synced, failed: localStudents.length - synced };
+}
+
+async function syncLocalArtworks() {
+  const localData = loadLocalData();
+  const localArtworks = localData.artworks.filter(function (artwork) {
+    return artwork.localOnly;
+  });
+  if (!localArtworks.length) {
+    return { synced: 0, failed: 0 };
+  }
+
+  const blockedStudentIds = new Set(
+    localData.students
+      .filter(function (student) {
+        return student.localOnly;
+      })
+      .map(function (student) {
+        return student.id;
+      })
+  );
+
+  const needsUpload = localArtworks.some(function (artwork) {
+    const mediaType = artwork.mediaType || (artwork.videoUrl ? "video" : "image");
+    const mediaUrl = mediaType === "video" ? artwork.videoUrl : artwork.imageUrl;
+    return isDataUrl(mediaUrl);
+  });
+  if (needsUpload && !isCloudinaryConfigured()) {
+    showToast("يرجى تحديث إعدادات Cloudinary حتى تتم المزامنة.", "error");
+    return { synced: 0, failed: localArtworks.length };
+  }
+
+  let synced = 0;
+  for (let index = 0; index < localArtworks.length; index += 1) {
+    const artwork = localArtworks[index];
+    if (!artwork.studentId || blockedStudentIds.has(artwork.studentId)) {
+      continue;
+    }
+
+    const mediaType = artwork.mediaType || (artwork.videoUrl ? "video" : "image");
+    const isVideo = mediaType === "video";
+    const mediaUrl = isVideo ? artwork.videoUrl : artwork.imageUrl;
+    if (!mediaUrl) {
+      continue;
+    }
+
+    try {
+      let finalUrl = mediaUrl;
+      if (isDataUrl(mediaUrl)) {
+        const upload = await uploadToCloudinary(
+          mediaUrl,
+          null,
+          isVideo ? "video" : "image"
+        );
+        finalUrl = upload.secure_url;
+      }
+
+      const payload = {
+        studentId: artwork.studentId,
+        type: artwork.type || "",
+        title: artwork.title || "عمل فني",
+        description: artwork.description || "",
+        mediaType: mediaType,
+        createdAt: artwork.createdAt || Date.now(),
+      };
+      if (isVideo) {
+        payload.videoUrl = finalUrl;
+      } else {
+        payload.imageUrl = finalUrl;
+      }
+
+      await setDoc(doc(artworksRef, artwork.id), payload);
+      const updates = { localOnly: false, mediaType: mediaType };
+      if (isVideo) {
+        updates.videoUrl = finalUrl;
+      } else {
+        updates.imageUrl = finalUrl;
+      }
+      updateLocalArtwork(artwork.id, updates);
+      synced += 1;
+    } catch (error) {
+      // Keep local data for retry.
+    }
+  }
+
+  return { synced: synced, failed: localArtworks.length - synced };
+}
+
+async function syncLocalQueue() {
+  if (isSyncingLocal || !studentsRef || !artworksRef) {
+    return;
+  }
+  const localData = loadLocalData();
+  const hasLocalStudents = localData.students.some(function (student) {
+    return student.localOnly;
+  });
+  const hasLocalArtworks = localData.artworks.some(function (artwork) {
+    return artwork.localOnly;
+  });
+  if (!hasLocalStudents && !hasLocalArtworks) {
+    return;
+  }
+
+  isSyncingLocal = true;
+  showToast("جاري مزامنة العناصر المحفوظة محليًا...");
+  const studentResult = await syncLocalStudents();
+  const artworkResult = await syncLocalArtworks();
+  const totalSynced = studentResult.synced + artworkResult.synced;
+  const totalFailed = studentResult.failed + artworkResult.failed;
+
+  const updated = loadLocalData();
+  students = updated.students;
+  artworks = updated.artworks;
+  renderStudentOptions();
+  renderAdminStudents();
+
+  if (totalSynced > 0 && totalFailed === 0) {
+    showToast("تمت مزامنة العناصر إلى السحابة بنجاح.");
+  } else if (totalSynced > 0) {
+    showToast("تمت مزامنة بعض العناصر والباقي يحتاج اتصالاً.", "error");
+  } else if (totalFailed > 0) {
+    showToast("تعذر مزامنة العناصر المحفوظة محليًا.", "error");
+  }
+  isSyncingLocal = false;
 }
 
 function getArtworkCards() {
@@ -738,7 +935,10 @@ function init() {
               renderAdminStudents();
               addStudentForm.reset();
               updateProgress("student", 0, "");
-              showToast("تم حفظ الطالبة محليًا بسبب مشكلة اتصال.", "error");
+              showToast(
+                "تم حفظ الطالبة محليًا وسيتم نشرها عند توفر الاتصال.",
+                "error"
+              );
             })
             .catch(function () {
               updateProgress("student", 0, "");
@@ -910,12 +1110,12 @@ function init() {
           updateProgress("artwork", 0, "");
           if (localCount > 0 && remoteCount === 0) {
             showToast(
-              "تم حفظ الأعمال محليًا بسبب مشكلة اتصال.",
+              "تم حفظ الأعمال محليًا وسيتم نشرها عند توفر الاتصال.",
               "error"
             );
           } else if (localCount > 0) {
             showToast(
-              "تم حفظ بعض الأعمال محليًا لعدم توفر الاتصال.",
+              "تم حفظ بعض الأعمال محليًا وسيتم نشرها عند توفر الاتصال.",
               "error"
             );
           } else {
@@ -1010,6 +1210,11 @@ function init() {
         });
         saveLocalArtworks(artworks);
         renderAdminStudents();
+      });
+
+      syncLocalQueue();
+      window.addEventListener("online", function () {
+        syncLocalQueue();
       });
 
       setupArtworkCards();
