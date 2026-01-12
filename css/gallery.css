@@ -1,0 +1,174 @@
+.gallery-hero {
+  padding: 5rem 0 2.5rem;
+}
+
+.gallery-hero h1 {
+  font-family: var(--font-display);
+  font-size: clamp(2.2rem, 3.6vw, 3.2rem);
+  margin: 0.8rem 0;
+}
+
+.gallery-hero p {
+  max-width: 720px;
+  color: var(--muted);
+}
+
+.gallery-controls {
+  padding-top: 0;
+}
+
+.controls-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.2rem;
+}
+
+.control-card {
+  padding: 1.2rem;
+  display: grid;
+  gap: 0.6rem;
+}
+
+.stats-card {
+  display: grid;
+  place-items: center;
+  text-align: center;
+  font-size: 1.1rem;
+}
+
+.stats-card strong {
+  font-size: 2rem;
+  font-family: var(--font-display);
+  color: var(--accent);
+}
+
+.gallery-grid {
+  column-count: 4;
+  column-gap: 1.5rem;
+}
+
+.student-card {
+  break-inside: avoid;
+  margin-bottom: 1.5rem;
+  border-radius: var(--radius-md);
+  background: var(--surface);
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  box-shadow: var(--shadow-soft);
+  overflow: hidden;
+  display: grid;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.student-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow);
+}
+
+.student-cover {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+}
+
+.student-body {
+  padding: 1rem 1.2rem 1.4rem;
+  display: grid;
+  gap: 0.7rem;
+  text-align: center;
+}
+
+.student-name {
+  font-weight: 700;
+  font-size: 1.05rem;
+}
+
+.student-count {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.student-actions {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.student-actions .btn {
+  width: 100%;
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 2.5rem 0;
+  color: var(--muted);
+}
+
+.skeleton-grid {
+  opacity: 0.8;
+}
+
+.skeleton-card {
+  min-height: 320px;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.4),
+    rgba(255, 255, 255, 0.15)
+  );
+}
+
+.skeleton-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    120deg,
+    transparent,
+    rgba(255, 255, 255, 0.6),
+    transparent
+  );
+  animation: shimmer 1.6s infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+@media (max-width: 1440px) {
+  .gallery-grid {
+    column-count: 3;
+  }
+}
+
+@media (max-width: 1024px) {
+  .controls-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .gallery-grid {
+    column-count: 3;
+  }
+}
+
+@media (max-width: 768px) {
+  .controls-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .gallery-grid {
+    column-count: 2;
+  }
+}
+
+@media (max-width: 425px) {
+  .gallery-grid {
+    column-count: 1;
+  }
+}

@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>أعمال الطالبة | مدرسة السلام الأساسية المختلطة</title>
+    <meta
+      name="description"
+      content="عرض كامل لأعمال الطالبة ضمن برنامج BTEC فن وتصميم."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&family=El+Messiri:wght@600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+    <link rel="stylesheet" href="css/global.css" />
+    <link rel="stylesheet" href="css/student.css" />
+  </head>
+  <body class="page">
+    <nav class="navbar">
+      <div class="nav-inner container">
+        <div class="nav-right">
+          <div class="logo-mark"><i class="fa-solid fa-school"></i></div>
+          <div class="logo-text">
+            <span class="logo-title">السلام</span>
+            <span class="logo-sub">مدرسة</span>
+          </div>
+        </div>
+        <div class="nav-center">
+          <a class="nav-link" href="home.html">الرئيسية</a>
+          <a class="nav-link" href="btec.html">BTEC</a>
+          <a class="nav-link" href="gallery.html">المعرض</a>
+        </div>
+        <div class="nav-left">
+          <a
+            class="icon-btn"
+            href="admin-login.html"
+            aria-label="تسجيل دخول الأدمن"
+          >
+            <i class="fa-regular fa-user"></i>
+          </a>
+          <div class="settings-wrap">
+            <button
+              class="icon-btn"
+              type="button"
+              data-settings-toggle
+              aria-label="الإعدادات"
+            >
+              <i class="fa-solid fa-gear"></i>
+            </button>
+            <div class="settings-menu" data-settings-menu>
+              <button class="menu-btn" type="button" data-theme-toggle>
+                <span data-theme-label>الوضع الليلي</span>
+              </button>
+              <div class="menu-group">
+                <span class="menu-title">ألوان الواجهة</span>
+                <div class="menu-row palette-grid" role="list">
+                  <button
+                    class="palette-btn"
+                    type="button"
+                    data-palette-option="rose"
+                    aria-label="زهري"
+                    title="زهري"
+                  >
+                    <span
+                      class="palette-swatch"
+                      style="--swatch-main: #d66a8f; --swatch-accent: #f4b8c9"
+                    ></span>
+                  </button>
+                  <button
+                    class="palette-btn"
+                    type="button"
+                    data-palette-option="peach"
+                    aria-label="خوخي"
+                    title="خوخي"
+                  >
+                    <span
+                      class="palette-swatch"
+                      style="--swatch-main: #f08a65; --swatch-accent: #f7c59f"
+                    ></span>
+                  </button>
+                  <button
+                    class="palette-btn"
+                    type="button"
+                    data-palette-option="lavender"
+                    aria-label="لافندر"
+                    title="لافندر"
+                  >
+                    <span
+                      class="palette-swatch"
+                      style="--swatch-main: #8b7ad9; --swatch-accent: #c8bef4"
+                    ></span>
+                  </button>
+                  <button
+                    class="palette-btn"
+                    type="button"
+                    data-palette-option="mint"
+                    aria-label="نعناعي"
+                    title="نعناعي"
+                  >
+                    <span
+                      class="palette-swatch"
+                      style="--swatch-main: #5db8a4; --swatch-accent: #a9dfcd"
+                    ></span>
+                  </button>
+                  <button
+                    class="palette-btn"
+                    type="button"
+                    data-palette-option="sky"
+                    aria-label="سماوي"
+                    title="سماوي"
+                  >
+                    <span
+                      class="palette-swatch"
+                      style="--swatch-main: #5aa6e6; --swatch-accent: #b7d9f7"
+                    ></span>
+                  </button>
+                </div>
+              </div>
+              <div class="menu-row">
+                <button class="menu-btn" type="button" data-font-dec>A-</button>
+                <button class="menu-btn" type="button" data-font-inc>A+</button>
+              </div>
+              <a class="menu-btn" href="admin-login.html">Admin Login</a>
+            </div>
+          </div>
+          <button
+            class="icon-btn hamburger"
+            type="button"
+            data-hamburger
+            aria-label="القائمة"
+          >
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+        </div>
+      </div>
+      <div class="mobile-menu" data-mobile-menu>
+        <a class="mobile-link" href="home.html">الرئيسية</a>
+        <a class="mobile-link" href="btec.html">BTEC</a>
+        <a class="mobile-link" href="gallery.html">المعرض</a>
+        <a class="mobile-link" href="admin-login.html">Admin Login</a>
+      </div>
+    </nav>
+
+    <main>
+      <section class="student-hero">
+        <div class="container student-hero-inner" data-animate>
+          <div class="student-hero-media glass">
+            <img id="student-cover" alt="غلاف الطالبة" />
+          </div>
+          <div class="student-hero-content">
+            <span class="tag" id="student-category">تصنيف</span>
+            <h1 id="student-name">اسم الطالبة</h1>
+            <p class="muted" id="student-meta">عدد الأعمال: 0</p>
+            <div class="student-hero-actions">
+              <a class="btn ghost" href="gallery.html">العودة للمعرض</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <div id="student-skeleton" class="artworks-grid skeleton-grid">
+            <div class="artwork-card skeleton-card"></div>
+            <div class="artwork-card skeleton-card"></div>
+            <div class="artwork-card skeleton-card"></div>
+            <div class="artwork-card skeleton-card"></div>
+          </div>
+          <div id="student-gallery" class="artworks-grid"></div>
+          <div id="student-empty" class="empty-state" hidden>
+            لا توجد أعمال مضافة لهذه الطالبة بعد.
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <div class="modal" id="artwork-modal" aria-hidden="true">
+      <div class="modal-overlay" data-modal-close></div>
+      <div class="modal-content glass">
+        <button class="modal-close" type="button" data-modal-close>
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+        <div id="artwork-modal-body"></div>
+      </div>
+    </div>
+
+    <button class="back-to-top" data-back-to-top aria-label="الرجوع للأعلى">
+      <i class="fa-solid fa-arrow-up"></i>
+    </button>
+
+    <script src="js/global.js" defer></script>
+    <script type="module" src="js/student.js"></script>
+  </body>
+</html>

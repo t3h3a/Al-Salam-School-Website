@@ -1,0 +1,921 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>مدرسة السلام الأساسية المختلطة | نظام BTEC</title>
+    <meta
+      name="description"
+      content="تعرف على نظام BTEC وتخصصاته المهنية المعتمدة في مدرسة السلام الأساسية المختلطة."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&family=El+Messiri:wght@600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+    <link rel="stylesheet" href="css/global.css" />
+    <link rel="stylesheet" href="css/btec.css" />
+  </head>
+  <body class="page">
+    <nav class="navbar">
+      <div class="nav-inner container">
+        <div class="nav-right">
+          <div class="logo-mark"><i class="fa-solid fa-school"></i></div>
+          <div class="logo-text">
+            <span class="logo-title">السلام</span>
+            <span class="logo-sub">مدرسة</span>
+          </div>
+        </div>
+        <div class="nav-center">
+          <a class="nav-link" href="home.html">الرئيسية</a>
+          <a class="nav-link" href="btec.html">BTEC</a>
+          <a class="nav-link" href="gallery.html">المعرض</a>
+        </div>
+        <div class="nav-left">
+          <a
+            class="icon-btn"
+            href="admin-login.html"
+            aria-label="تسجيل دخول الأدمن"
+          >
+            <i class="fa-regular fa-user"></i>
+          </a>
+          <div class="settings-wrap">
+            <button
+              class="icon-btn"
+              type="button"
+              data-settings-toggle
+              aria-label="الإعدادات"
+            >
+              <i class="fa-solid fa-gear"></i>
+            </button>
+            <div class="settings-menu" data-settings-menu>
+              <button class="menu-btn" type="button" data-theme-toggle>
+                <span data-theme-label>الوضع الليلي</span>
+              </button>
+              <div class="menu-group">
+                <span class="menu-title">ألوان الواجهة</span>
+                <div class="menu-row palette-grid" role="list">
+                  <button
+                    class="palette-btn"
+                    type="button"
+                    data-palette-option="rose"
+                    aria-label="زهري"
+                    title="زهري"
+                  >
+                    <span
+                      class="palette-swatch"
+                      style="--swatch-main: #d66a8f; --swatch-accent: #f4b8c9"
+                    ></span>
+                  </button>
+                  <button
+                    class="palette-btn"
+                    type="button"
+                    data-palette-option="peach"
+                    aria-label="خوخي"
+                    title="خوخي"
+                  >
+                    <span
+                      class="palette-swatch"
+                      style="--swatch-main: #f08a65; --swatch-accent: #f7c59f"
+                    ></span>
+                  </button>
+                  <button
+                    class="palette-btn"
+                    type="button"
+                    data-palette-option="lavender"
+                    aria-label="لافندر"
+                    title="لافندر"
+                  >
+                    <span
+                      class="palette-swatch"
+                      style="--swatch-main: #8b7ad9; --swatch-accent: #c8bef4"
+                    ></span>
+                  </button>
+                  <button
+                    class="palette-btn"
+                    type="button"
+                    data-palette-option="mint"
+                    aria-label="نعناعي"
+                    title="نعناعي"
+                  >
+                    <span
+                      class="palette-swatch"
+                      style="--swatch-main: #5db8a4; --swatch-accent: #a9dfcd"
+                    ></span>
+                  </button>
+                  <button
+                    class="palette-btn"
+                    type="button"
+                    data-palette-option="sky"
+                    aria-label="سماوي"
+                    title="سماوي"
+                  >
+                    <span
+                      class="palette-swatch"
+                      style="--swatch-main: #5aa6e6; --swatch-accent: #b7d9f7"
+                    ></span>
+                  </button>
+                </div>
+              </div>
+              <div class="menu-row">
+                <button class="menu-btn" type="button" data-font-dec>A-</button>
+                <button class="menu-btn" type="button" data-font-inc>A+</button>
+              </div>
+              <a class="menu-btn" href="admin-login.html">Admin Login</a>
+            </div>
+          </div>
+          <button
+            class="icon-btn hamburger"
+            type="button"
+            data-hamburger
+            aria-label="القائمة"
+          >
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+        </div>
+      </div>
+      <div class="mobile-menu" data-mobile-menu>
+        <a class="mobile-link" href="home.html">الرئيسية</a>
+        <a class="mobile-link" href="btec.html">BTEC</a>
+        <a class="mobile-link" href="gallery.html">المعرض</a>
+        <a class="mobile-link" href="admin-login.html">Admin Login</a>
+      </div>
+    </nav>
+
+    <main>
+      <section class="btec-hero">
+        <div class="container hero-inner">
+          <div class="hero-content" data-animate>
+            <span class="tag">نظام BTEC</span>
+            <h1>تعرف على نظام <span>BTEC</span></h1>
+            <p>
+              نظام التعليم البريطاني المهني الأكثر اعتماداً عالمياً، ويعتمد على
+              المهارات العملية والتطبيقات الواقعية وليس على الحفظ التقليدي.
+            </p>
+            <div class="hero-actions">
+              <a class="btn primary" href="#details">ابدأ الاستكشاف</a>
+              <a class="btn ghost" href="#majors">عرض التخصصات</a>
+            </div>
+          </div>
+          <div class="hero-card glass" data-animate>
+            <h3>لماذا BTEC؟</h3>
+            <p>
+              مسار عملي يوازن بين التعلم الأكاديمي والتطبيق المباشر، ويؤهل الطلبة
+              للجامعة أو سوق العمل بثقة.
+            </p>
+            <div class="hero-card-list">
+              <span><i class="fa-solid fa-check"></i> تقييم مستمر</span>
+              <span><i class="fa-solid fa-check"></i> مشاريع تطبيقية</span>
+              <span><i class="fa-solid fa-check"></i> اعتماد دولي</span>
+            </div>
+          </div>
+        </div>
+        <div class="container hero-highlights" data-animate>
+          <div class="highlight-card glass">
+            <span class="highlight-number">100+</span>
+            <span class="highlight-label">دولة حول العالم</span>
+          </div>
+          <div class="highlight-card glass">
+            <span class="highlight-number">تقييم مستمر</span>
+            <span class="highlight-label">بدون امتحان نهائي</span>
+          </div>
+          <div class="highlight-card glass">
+            <span class="highlight-number">تعلم عملي</span>
+            <span class="highlight-label">مشاريع واقعية مباشرة</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="details">
+        <div class="container">
+          <div class="section-head">
+            <h2 class="section-title">ما هو <span>BTEC</span> ؟</h2>
+            <p class="section-subtitle">
+              كلمة BTEC هي اختصار لـ
+              <strong>Business and Technology Education Council</strong>، وهو
+              نظام تعليمي مهني بريطاني يعتمد على المهارات العملية والتقييم
+              المستمر. يتم تدريسه في أكثر من <strong>100 دولة</strong> حول العالم
+              ويُعتبر واحداً من أشهر البرامج المهنية التي تؤهل الطلبة للجامعة أو
+              سوق العمل.
+            </p>
+          </div>
+
+          <div class="info-grid">
+            <article class="info-card glass" data-animate>
+              <div class="info-icon">
+                <i class="fa-solid fa-graduation-cap"></i>
+              </div>
+              <h3>نظام عالمي</h3>
+              <p>
+                يتم تدريسه في مئات المؤسسات، ومعتمد دولياً للالتحاق بالجامعات أو
+                العمل.
+              </p>
+            </article>
+
+            <article class="info-card glass" data-animate>
+              <div class="info-icon">
+                <i class="fa-solid fa-gears"></i>
+              </div>
+              <h3>تعليم قائم على المهارات</h3>
+              <p>
+                لا يعتمد على الحفظ بل على المشاريع، المهام العملية، والعروض
+                التقديمية.
+              </p>
+            </article>
+
+            <article class="info-card glass" data-animate>
+              <div class="info-icon">
+                <i class="fa-solid fa-file-circle-check"></i>
+              </div>
+              <h3>تقييم مستمر</h3>
+              <p>
+                يتم تقييم الطالب عبر مهام عملية وتطبيقية طوال العام بدون امتحان
+                نهائي.
+              </p>
+            </article>
+
+            <article class="info-card glass" data-animate>
+              <div class="info-icon">
+                <i class="fa-solid fa-briefcase"></i>
+              </div>
+              <h3>جاهزية لسوق العمل</h3>
+              <p>يُكسب الطالب مهارات عملية مباشرة مطلوبة في الوظائف الحديثة.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="majors">
+        <div class="container">
+          <div class="section-head">
+            <h2 class="section-title">تخصصات <span>BTEC</span></h2>
+            <p class="section-subtitle">
+              مسارات مهنية متنوعة تتيح للطلبة اختيار المجال الأنسب لميولهم
+              وقدراتهم.
+            </p>
+          </div>
+
+          <div class="majors-grid">
+            <article class="major-card glass" data-animate>
+              <i class="fa-solid fa-briefcase"></i>
+              <h3>مسار الأعمال</h3>
+              <p>
+                يشمل: الإدارة، المحاسبة الأساسية، التسويق، ريادة الأعمال،
+                والتخطيط المالي. يساعد الطلبة على فهم السوق وإدارة المشاريع
+                بمهارات عملية.
+              </p>
+              <div class="major-actions">
+                <a class="btn outline" href="btec-major.html?major=business-marketing"
+                  >عرض المزيد</a
+                >
+              </div>
+            </article>
+
+            <article class="major-card glass" data-animate>
+              <i class="fa-solid fa-palette"></i>
+              <h3>مسار الفن والتصميم</h3>
+              <p>
+                الرسم اليدوي والرقمي، تصميم الجرافيك الأساسي، تنسيق الألوان
+                والتكوين البصري، تصميم الملصقات والمنشورات، واستخدام برامج التصميم
+                الاحترافية.
+              </p>
+              <div class="major-actions">
+                <a class="btn outline" href="btec-major.html?major=art-design"
+                  >عرض المزيد</a
+                >
+              </div>
+            </article>
+
+            <article class="major-card glass" data-animate>
+              <i class="fa-solid fa-spa"></i>
+              <h3>مسار الشعر والتجميل</h3>
+              <p>
+                يشمل: العناية بالبشرة والشعر، المكياج الاحترافي، تصفيف الشعر،
+                العناية بالأظافر، وإزالة الشعر وتقديم الاستشارات الجمالية.
+              </p>
+              <div class="major-actions">
+                <a class="btn outline" href="btec-major.html?major=beauty"
+                  >عرض المزيد</a
+                >
+              </div>
+            </article>
+
+            <article class="major-card glass" data-animate>
+              <i class="fa-solid fa-gears"></i>
+              <h3>مسار الهندسة</h3>
+              <p>
+                يشمل: تمديدات الكهرباء، الإلكترونيات، صيانة السيارات، أنظمة
+                التكييف والتبريد، التصنيع الميكانيكي، التحكم الآلي، وتقنيات
+                الطاقة المتجددة.
+              </p>
+              <div class="major-actions">
+                <a class="btn outline" href="btec-major.html?major=industrial-tech"
+                  >عرض المزيد</a
+                >
+              </div>
+            </article>
+
+            <article class="major-card glass" data-animate>
+              <i class="fa-solid fa-hard-hat"></i>
+              <h3>مسار الإنشاءات والبيئة العمرانية</h3>
+              <p>
+                يشمل: القراءة من المخططات الهندسية، أعمال البناء والتشطيبات،
+                تمديدات الكهرباء والمياه، المساحة والخرائط، وإدارة مواقع الإنشاء
+                والبيئة العمرانية.
+              </p>
+              <div class="major-actions">
+                <a class="btn outline" href="btec-major.html?major=construction"
+                  >عرض المزيد</a
+                >
+              </div>
+            </article>
+
+            <article class="major-card glass" data-animate>
+              <i class="fa-solid fa-plane"></i>
+              <h3>مسار السفر والسياحة</h3>
+              <p>
+                تنظيم الرحلات السياحية، حجز التذاكر والفنادق، إرشاد السياح، خدمة
+                العملاء، التسويق السياحي، وإدارة المطارات (الجانب الخدمي).
+              </p>
+              <div class="major-actions">
+                <a class="btn outline" href="btec-major.html?major=tourism"
+                  >عرض المزيد</a
+                >
+              </div>
+            </article>
+
+            <article class="major-card glass" data-animate>
+              <i class="fa-solid fa-paper-plane"></i>
+              <h3>مسار الوسائط الإبداعية</h3>
+              <p>
+                يشمل: صناعة المحتوى المرئي، التصوير السينمائي، المونتاج، البث
+                المباشر، كتابة السيناريو الإعلاني، وإدارة المنصات الرقمية.
+              </p>
+              <div class="major-actions">
+                <a class="btn outline" href="btec-major.html?major=digital-media"
+                  >عرض المزيد</a
+                >
+              </div>
+            </article>
+
+            <article class="major-card glass" data-animate>
+              <i class="fa-solid fa-hotel"></i>
+              <h3>مسار الضيافة</h3>
+              <p>
+                يهتم بمهارات خدمة العملاء، إدارة الفنادق، إعداد الطعام والشراب،
+                ومعايير الجودة العالمية. يؤهل للعمل في الفنادق والمنتجعات.
+              </p>
+              <div class="major-actions">
+                <a class="btn outline" href="btec-major.html?major=hospitality"
+                  >عرض المزيد</a
+                >
+              </div>
+            </article>
+
+            <article class="major-card glass" data-animate>
+              <i class="fa-solid fa-seedling"></i>
+              <h3>مسار الزراعة</h3>
+              <p>
+                يشمل: الزراعة الحديثة (بدون تربة، الدفيئات)، الإنتاج الحيواني،
+                الميكنة الزراعية، حماية النباتات، إدارة الموارد المائية، وتربية
+                النحل.
+              </p>
+              <div class="major-actions">
+                <a class="btn outline" href="btec-major.html?major=agriculture"
+                  >عرض المزيد</a
+                >
+              </div>
+            </article>
+
+            <article class="major-card glass" data-animate>
+              <i class="fa-solid fa-laptop-code"></i>
+              <h3>مسار تكنولوجيا المعلومات</h3>
+              <p>
+                يشمل البرمجة، الأمن السيبراني، الشبكات، قواعد البيانات، تطوير
+                التطبيقات، وإدارة الأنظمة. مناسب للطلاب المهتمين بالتقنية
+                والتحليل.
+              </p>
+              <div class="major-actions">
+                <a class="btn outline" href="btec-major.html?major=it"
+                  >عرض المزيد</a
+                >
+              </div>
+            </article>
+
+            <article class="major-card glass" data-animate>
+              <i class="fa-solid fa-person-running"></i>
+              <h3>مسار الرياضة</h3>
+              <p>
+                يشمل: التدريب البدني، تأهيل اللياقة البدنية، إدارة الأندية
+                والمراكز الرياضية، الإسعافات الرياضية، تغذية الرياضيين، وتنظيم
+                الفعاليات والبطولات.
+              </p>
+              <div class="major-actions">
+                <a class="btn outline" href="btec-major.html?major=sports"
+                  >عرض المزيد</a
+                >
+              </div>
+            </article>
+
+            <article class="major-card glass" data-animate>
+              <i class="fa-solid fa-heart-pulse"></i>
+              <h3>مسار الرعاية الصحية والاجتماعية</h3>
+              <p>
+                يشمل: التمريض المساعد، المختبرات الطبية، الأجهزة والتشخيص الطبي،
+                الإسعافات الأولية، الصحة المجتمعية، ودعم الفرق الطبية والاجتماعية.
+              </p>
+              <div class="major-actions">
+                <a class="btn outline" href="btec-major.html?major=healthcare"
+                  >عرض المزيد</a
+                >
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <div class="section-head">
+            <h2 class="section-title">مستويات <span>BTEC</span></h2>
+            <p class="section-subtitle">
+              مستويات متدرجة تضمن بناء مهارات الطلبة من التأسيس حتى الجاهزية
+              الجامعية.
+            </p>
+          </div>
+
+          <div class="levels-grid">
+            <div class="level-box glass" data-animate>
+              <h3>Level 1</h3>
+              <p>مستوى تأسيسي لبناء المهارات الأساسية التقنية والمهنية.</p>
+            </div>
+
+            <div class="level-box glass" data-animate>
+              <h3>Level 2</h3>
+              <p>مستوى متوسط يؤهل الطالب للوظائف المبدئية أو التدريب المتقدم.</p>
+            </div>
+
+            <div class="level-box glass" data-animate>
+              <h3>Level 3</h3>
+              <p>أعلى مستوى مدرسي، يؤهل الطالب للالتحاق بالجامعات الدولية.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <div class="section-head">
+            <h2 class="section-title">كيف يتم <span>تقييم</span> الطالب؟</h2>
+            <p class="section-subtitle">
+              يعتمد التقييم على الأداء العملي وتطبيق المهارات في سياقات واقعية.
+            </p>
+          </div>
+
+          <ul class="faq-list" data-animate>
+            <li><i class="fa-solid fa-check"></i> مهام عملية (Assignments)</li>
+            <li><i class="fa-solid fa-check"></i> مشاريع تطبيقية</li>
+            <li><i class="fa-solid fa-check"></i> عروض تقديمية</li>
+            <li><i class="fa-solid fa-check"></i> أعمال فردية وجماعية</li>
+            <li><i class="fa-solid fa-check"></i> تقييم مستمر بدون امتحان نهائي</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <div class="section-head">
+            <h2 class="section-title">أمثلة على <span>مشاريع</span> BTEC</h2>
+            <p class="section-subtitle">
+              مشاريع تطبيقية تعكس دمج المهارات المهنية مع السياق الواقعي.
+            </p>
+          </div>
+
+          <div class="projects-grid">
+            <div class="project-card glass" data-animate>
+              إنشاء موقع إلكتروني كامل
+            </div>
+            <div class="project-card glass" data-animate>
+              تصميم نظام قواعد بيانات
+            </div>
+            <div class="project-card glass" data-animate>
+              فيديو ترويجي احترافي
+            </div>
+            <div class="project-card glass" data-animate>
+              محاكاة استقبال فندقي
+            </div>
+            <div class="project-card glass" data-animate>
+              إعداد قوائم طعام فندقية
+            </div>
+            <div class="project-card glass" data-animate>
+              تصميم شعار وبروفايل لشركة
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section btec-guidelines">
+        <div class="container">
+          <div class="section-head">
+            <h2 class="section-title">منظومة تطبيق <span>BTEC</span></h2>
+            <p class="section-subtitle">
+              معلومات تنظيمية وتربوية تساعد على فهم آليات تطبيق البرنامج وضمان
+              جودة التعليم والتقييم.
+            </p>
+          </div>
+
+          <div class="btec-accordion">
+            <details class="accordion-item glass" data-animate>
+              <summary>
+                الهيكل الإداري التنظيمي لنظام التعليم التقني والمهني BTEC
+              </summary>
+              <div class="accordion-content">
+                <p>
+                  برنامج نظام التعليم التقني والمهني يهدف إلى تحسين جودة التعليم
+                  في المدارس من خلال تعزيز التعاون بين المعلمين والطلاب وأولياء
+                  الأمور. يركز البرنامج على تقديم بيئة تعليمية محفزة تدعم النمو
+                  الشامل للطلاب وتساعدهم في تحقيق إمكانياتهم الكاملة ورفع مستوى
+                  مهاراتهم التخصصية وغير التخصصية، ويتضمن البرنامج مجموعة من
+                  الأنشطة التعليمية والمشاريع التي تعزز من قدرات الطلاب لرفع
+                  جاهزيتهم لسوق العمل.
+                </p>
+                <p>
+                  في سياق تطبيق برنامج BTEC في وزارة التربية والتعليم، ولتحقيق
+                  الأهداف الإستراتيجية للوزارة، تم اعتماد الهيكل الإداري
+                  والمسؤوليات لتوضيح العلاقات بين مختلف الوحدات الإدارية
+                  والتنفيذية للبرنامج وتعزيز التنسيق بين الجهات المختلفة
+                  (الوزارة بإداراتها والمديريات والمدارس).
+                </p>
+              </div>
+            </details>
+
+            <details class="accordion-item glass" data-animate>
+              <summary>المسميات الوظيفية المطلوبة لعملية التدريس وضمان الجودة</summary>
+              <div class="accordion-content">
+                <h4>مدير إدارة التعليم المهني والإنتاج</h4>
+                <ul>
+                  <li>تنفيذ سياسات وزارة التربية والتعليم.</li>
+                  <li>
+                    الإشراف العام على مديريات التابعة لإدارة التعليم المهني
+                    والانتاج (مديرية التعليم المهني/مديرية الخدمات المهنية/مديرية
+                    الاجهزة المخبرية).
+                  </li>
+                  <li>الإشراف العام على مديريات التربية والتعليم / اقسام التعليم المهني.</li>
+                  <li>ضمان جودة التدريس والتقييم.</li>
+                  <li>الاشراف على متطلبات الاعتماد والتجهيزات للمسارات الجديدة.</li>
+                  <li>
+                    التنسيق مع مديري الإدارات في الوزارة ومديري التربية والتعليم
+                    في الميدان لتوفير الموارد التعليمية والتأكد من جاهزية المدارس
+                    واستدامتها لتطبيق البرنامج بمختلف تخصصاته.
+                  </li>
+                  <li>ضمان تطبيق نظام جودة فعّال لبرامج BTEC وتعزيز الممارسات الفضلى.</li>
+                  <li>إصدار التعميمات وتوزيعها على المديريات.</li>
+                </ul>
+
+                <h4>مدير مديرية التعليم المهني</h4>
+                <ul>
+                  <li>
+                    الإشراف العام على أقسام التعليم المهني، بما يشمل تقييم الأداء
+                    وتجهيزات المدارس بمختلف التخصصت المهنية التقنية.
+                  </li>
+                  <li>ضبط جودة التدريس والتقييم، ومراجعة أعمال المدققين الداخليين.</li>
+                  <li>تنفيذ سياسات وزارة التربية والتعليم.</li>
+                  <li>متابعة متطلبات الاعتماد والتجهيزات للمسارات الجديدة.</li>
+                  <li>التنسيق مع رؤساء الأقسام لتوفير الموارد التعليمية.</li>
+                  <li>الإشراف على التدقيق الخارجي بالتعاون مع مسؤولي الجودة.</li>
+                  <li>
+                    التواصل مع مركز الملكة رانيا لضبط بيانات الكادر التدريسي
+                    والإداري على منصة BTEC EMIS.
+                  </li>
+                  <li>
+                    التواصل مع مركز الملكة رانيا لضبط بيانات الطلبة ورفع العلامات
+                    عبر منصة Pearson EOL.
+                  </li>
+                  <li>ضمان تطبيق نظام جودة فعّال لبرامج BTEC وتعزيز الممارسات المثلى.</li>
+                  <li>التحقق من دقة هيكل البرامج الأكاديمية.</li>
+                  <li>التحقق من محتوى الكتب.</li>
+                  <li>التنسيق مع مدير دعم الجودة من Pearson في الأردن.</li>
+                  <li>متابعة تدريب مرشحي الجودة والمقيمين والمدققين.</li>
+                  <li>ضمان إعداد وتنفيذ خطط التقييم بكفاءة.</li>
+                  <li>تحميل مستندات SV على منصة Progress.</li>
+                  <li>تنظيم اجتماعات دورية مع Pearson والمديريات لمتابعة سير برنامج BTEC.</li>
+                  <li>إصدار التعميمات وتوزيعها على المديريات.</li>
+                  <li>إدارة شؤون المقيمين بالتعاون مع الجهات المعنية.</li>
+                  <li>الإشراف على إعادة تقديم المهام في جميع مسارات البرنامج.</li>
+                </ul>
+
+                <h4>
+                  رئيس قسم التعليم المهني – إدارة التعليم المهني (لكل مسار) -
+                  BTEC Leads
+                </h4>
+                <ul>
+                  <li>
+                    الإشراف على جودة التدريس والتقييم والتدقيق الداخلي في المسار
+                    على مستوى المدارس.
+                  </li>
+                  <li>
+                    التأكد من توفر الموارد، البنية التحتية، والأمن والسلامة
+                    لتطبيق البرنامج.
+                  </li>
+                  <li>متابعة زيارات التدقيق الخارجي بالتنسيق مع Pearson وضباط الجودة.</li>
+                  <li>مراجعة تقارير التدقيق الخارجي والداخلي، ومتابعة تنفيذ التوصيات.</li>
+                  <li>
+                    التنسيق مع المدارس لضمان جاهزية التجهيزات والكتب والمرافق
+                    اللازمة.
+                  </li>
+                  <li>
+                    مراجعة الوحدات الدراسية وتقديم الملاحظات لـ Pearson، والموافقة
+                    على بروفات الطباعة.
+                  </li>
+                  <li>
+                    تنفيذ الخطتين الوقائية والعلاجية حسب تقارير التدقيق وبالتنسيق
+                    مع رئيس قسم التعليم المهني في المديرية.
+                  </li>
+                  <li>متابعة المدارس المستحدثة والتأكد من ملاءمتها لتطبيق المسار.</li>
+                  <li>
+                    إعداد ومتابعة كشوف العلامات والواجبات والمستندات المطلوبة عبر
+                    منصة Pearson.
+                  </li>
+                  <li>تدريب المقيمين والمدققين الداخليين وتوحيد قرارات التقييم.</li>
+                  <li>إجراء اجتماعات دورية مع المقيمين والمشرفين لتحسين مخرجات التعليم.</li>
+                  <li>إعداد خطة التقييم الخاصة بالمسار ومتابعة تنفيذها على مستوى المملكة.</li>
+                  <li>الإشراف على تجهيز الواجبات وإرسال الإرشادات إلى المدارس في الوقت المناسب.</li>
+                </ul>
+
+                <h4>رئيس قسم التعليم المهني في مديريات التربية والتعليم</h4>
+                <ul>
+                  <li>
+                    تطبيق الخطتين: (الخطة الوقائية) قبل زيارة المدقق الخارجي
+                    الأولى و (الخطة العلاجية) بناءً على تقرير المدقق الخارجي
+                    الأولى وانجازها قبل الزيارة الثانية.
+                  </li>
+                  <li>
+                    مسؤول عن ضمان جودة التدريس والتقييم، والإشراف العام على أداء
+                    المدققين الداخليين في مدارس المديرية لكافة المسارات.
+                  </li>
+                  <li>
+                    اعتماد المدارس التي تطرح تخصصات جديدة، ومتابعة تجهيزاتها،
+                    وبنيتها التحتية، واحتياجاتها من الكوادر البشرية.
+                  </li>
+                  <li>التنسيق مع مديري المدارس لضمان توفر الموارد المطلوبة لتدريس البرامج الخاصة بكل مسار.</li>
+                  <li>
+                    التعاون مع مديري المدارس وضباط الجودة لمتابعة عملية التدقيق
+                    الخارجي من قبل شركة بيرسون.
+                  </li>
+                  <li>
+                    تنفيذ زيارات اسبوعية للمدارس التي تطبق البرنامج بمختلف
+                    تخصصاتها والوقوف على احتياجاتها وتزويد الوزارة بتقارير
+                    اسبوعية.
+                  </li>
+                  <li>
+                    مراجعة بيانات تسجيل الطلبة على منصة BTEC EMIS والتأكد من
+                    صحتها قبل إرسالها إلى مركز الملكة رانيا لرفعها على منصة
+                    Pearson EOL.
+                  </li>
+                  <li>
+                    استلام ومراجعة كشوف العلامات بعد انتهاء البرامج، ثم إرسالها
+                    إلى مركز الملكة رانيا لطلب الشهادات.
+                  </li>
+                  <li>
+                    رفع أي قضايا أو مشكلات تخص المسارات إلى رئيس القسم المختص
+                    في الوزارة.
+                  </li>
+                  <li>
+                    الإشراف على جودة تنفيذ البرنامج في المدارس ضمن نطاق المديرية،
+                    ورفع تقارير بذلك إلى الوزارة.
+                  </li>
+                  <li>
+                    متابعة سير العملية التدريسية، بما يشمل خطط التقييم، الجداول
+                    الدراسية، وعدد الساعات المطلوبة.
+                  </li>
+                  <li>
+                    في حال حدوث خلاف بين رئيس القسم في الوزارة ورئيس القسم في
+                    المديرية، يُحال الأمر إلى مدير مديرية التعليم المهني لحله.
+                  </li>
+                </ul>
+
+                <h4>مدير المدرسة</h4>
+                <ul>
+                  <li>المسؤول الرسمي عن إدارة برامج BTEC ومتابعة سير العملية التعليمية داخل المدرسة.</li>
+                  <li>التأكد من توفر الموارد اللازمة للتدريس والتقييم، ومتابعة صيانتها وتحديثها.</li>
+                  <li>
+                    التنسيق مع ضابط الجودة لضمان سير العملية التعليمية بكفاءة،
+                    ورفع الواجبات وأدلة تقييم الطلبة على مجلد التخزين (Storage
+                    Folder).
+                  </li>
+                  <li>مسؤول عن تنفيذ سياسة الاستئناف في حال وجود اعتراضات من الطلبة أو الكادر التدريسي.</li>
+                  <li>التحقيق في أي ادعاءات تتعلق بسوء الممارسة من قبل الطلبة أو أعضاء الهيئة التدريسية.</li>
+                  <li>اعتماد إعادة تسليم المهام للطلبة بالتنسيق مع المدقق الداخلي في المدرسة.</li>
+                  <li>
+                    مراجعة ملفات تسجيل الطلبة المُنزلة من منصة Pearson EOL والتأكد
+                    من صحتها، ثم إرسالها إلى مديرية التربية والتعليم.
+                  </li>
+                  <li>
+                    استلام كشوف العلامات من ضابط الجودة بعد انتهاء البرنامج،
+                    مراجعتها، والتأكد من دقتها، ثم إرسالها إلى المديرية.
+                  </li>
+                </ul>
+
+                <h4>ضابط الجودة في المدرسة</h4>
+                <ul>
+                  <li>نقطة الاتصال الرئيسية مع المدققين الخارجيين المعينين من قبل بيرسون لضمان تنفيذ التدقيق الخارجي بالشكل الصحيح.</li>
+                  <li>التأكد من إشراك رئيس قسم التعليم المهني في الوزارة في جميع مراسلات التدقيق الخارجي.</li>
+                  <li>التنسيق مع المسؤول عن تسجيل الطلبة، ومراجعة نماذج التسجيل وفقًا لملفات الإكسل المُنزلة من منصة Pearson، وضمان جاهزيتها.</li>
+                  <li>متابعة استلام بيانات تسجيل الطلبة من مدير المدرسة والتأكد من اكتمالها.</li>
+                  <li>مسؤول عن ضمان جودة تنفيذ برامج BTEC وتعزيز أفضل الممارسات داخل المدرسة.</li>
+                  <li>مراجعة هيكل البرامج ومكوناتها بانتظام.</li>
+                  <li>التنسيق مع رئيس القسم المهني في المديرية لتحديد موعد زيارة المدقق الخارجي.</li>
+                  <li>التواصل مع مدير دعم الجودة في بيرسون – الأردن للاستفسارات الفنية وتلقي الدعم.</li>
+                  <li>متابعة أداء المقيمين والمدققين الداخليين، وضمان توحيد قرارات التقييم.</li>
+                  <li>التنسيق مع الوزارة بشأن أي تحديثات أو استفسارات تتعلق بالبرنامج.</li>
+                  <li>إرسال نسخة من خطة التقييم لرئيس القسم المهني في المديرية.</li>
+                  <li>
+                    رفع جميع مستندات التدقيق الخارجي على منصة Progress أو تفويض
+                    المدقق الداخلي بذلك، بما يشمل: خطة التقييم، كشوف العلامات،
+                    الجداول الدراسية، السياسات، السير الذاتية، وملفات التقييم
+                    والتدقيق الداخلي.
+                  </li>
+                  <li>مراجعة تقرير المدقق الخارجي، مناقشته مع فريق البرنامج، واتخاذ الإجراءات التصحيحية اللازمة.</li>
+                  <li>مشاركة تقرير التدقيق مع مدير المدرسة ورئيس قسم التعليم المهني في الوزارة.</li>
+                  <li>التأكد من جاهزية كشوف العلامات، دقتها، واستلامها من مدير المدرسة تمهيدًا لطلب الشهادات.</li>
+                </ul>
+
+                <h4>المدقق الداخلي (في كل مدرسة)</h4>
+                <ul>
+                  <li>الموافقة على خطة التقييم والتدقيق ومشاركتها مع رئيس القسم المختص في الوزارة.</li>
+                  <li>إرسال خطة التقييم إلى مرشح الجودة لاعتمادها.</li>
+                  <li>حفظ سجلات التدقيق بدقة، وتسليمها لضابط الجودة، ومتابعة الإجراءات التصحيحية.</li>
+                  <li>التأكد من مطابقة جميع المهام عدا (PSAs) للمعايير المطلوبة وصحة قرارات التقييم وتنفيذ الإجراءات التصحيحية بدقة.</li>
+                  <li>لا يجوز التدقيق على طلاب يقوم بتدريسهم.</li>
+                  <li>تقديم تغذية راجعه بناءة للمقيم ومجالات التطوير ورفع مستوى جودة التدريس والتقييم.</li>
+                </ul>
+
+                <h4>المعلم (المقيم)</h4>
+                <ul>
+                  <li>قراءة كتيب البرنامج وفهم متطلبات كل وحدة دراسية.</li>
+                  <li>التأكد من توفر الخطط الدراسية والصفية.</li>
+                  <li>تدريس الطلبة، وتقييمهم، وضمان تحقيق نواتج التعلم والمعايير.</li>
+                  <li>إعداد الطلبة للتقييم بعدالة.</li>
+                  <li>تصميم أنشطة تقييم تدعم المهارات المهنية.</li>
+                  <li>التأكد من خلو أعمال الطلبة من الانتحال.</li>
+                  <li>تقديم تغذية راجعة بناءة وواضحه للطلبة للواجبات على مرحلتين.</li>
+                  <li>تعبئة المستندات المطلوبة (عدا مستندات التدقيق الداخلي).</li>
+                  <li>تجهيز خطة للدروس اسبوعية والتطوير عليها باستمرار.</li>
+                  <li>إبلاغ ضابط الجودة بأي مشاكل فردية والعمل على حلها ضمن فريق المدرسة.</li>
+                  <li>التواصل مع أولياء الأمور بالتعاون مع الإدارة.</li>
+                  <li>حضور الاجتماعات مع الوزارة لمشاركة الملاحظات.</li>
+                  <li>إدخال التقييمات على منصة BTEC EMIS ورفع الأدلة على منصة (Progress) إن وُجدت.</li>
+                  <li>تنظيم زيارات ميدانية ومحاضرات ضيوف لدعم تعلم الطلبة.</li>
+                  <li>دمج التكنولوجيا ودراسات الحالة في التدريس.</li>
+                  <li>دعم الطلبة وتدريبهم وتعزيز مهاراتهم.</li>
+                  <li>منح فرص إعادة التسليم/التقديم وفق التعليمات وبمواعيدها حسب خطة التقييم.</li>
+                </ul>
+
+                <h4>المدقق الداخلي الرئيسي (غير مفعّل حاليًا)</h4>
+                <ul>
+                  <li>يدعم المقيمين والمدققين لرفع جودة التعليم.</li>
+                  <li>يوقّع على خطة التقييم ويتابع تنفيذها.</li>
+                  <li>يساعد في فهم المناهج وآليات التقييم.</li>
+                  <li>يعقد اجتماعات دورية لتحسين جودة النتائج.</li>
+                  <li>يتابع عمليات تسليم/إعادة تسليم/إعادة تقديم الواجبات ويضمن عدالتها.</li>
+                  <li>يحضّر لزيارة المدقق الخارجي ويتأكد من جاهزية المدرسة.</li>
+                  <li>يتابع تنفيذ التوصيات الواردة في تقرير المدقق الخارجي.</li>
+                </ul>
+
+                <h4>المشرف التربوي (BTEC)</h4>
+                <ul>
+                  <li>تنفيذ الخطتين الوقائية والعلاجية حسب تقارير التدقيق.</li>
+                  <li>زيارات للمدارس حسب التخصص وحضور الحصص التدريسية والتأكد من جودة التدريس.</li>
+                  <li>الإشراف على التقييم والتدقيق الداخلي.</li>
+                  <li>دعم المقيمين في فهم المناهج ونظام التقييم.</li>
+                  <li>إعداد ورفع تقارير دورية للمديرية والوزارة.</li>
+                  <li>التحقق من وجود خطة تقييم تلائم متطلبات المسار.</li>
+                  <li>دعم مستمر للمقيمين والمدققين الداخليين.</li>
+                  <li>الإشراف على عمليات إعادة تسليم/تقديم الواجبات وضمان عدالتها.</li>
+                  <li>حضور زيارات التدقيق الخارجي ومتابعة تنفيذ توصياته.</li>
+                  <li>التنسيق مع الوزارة بخصوص أي ملاحظات.</li>
+                  <li>تنظيم ورش تدريبية للممارسات التعليمية الفعالة.</li>
+                  <li>دعم تصميم الأنشطة التحفيزية، ومعالجة التحديات، ومتابعة تقدم الطلبة.</li>
+                </ul>
+
+                <h4>
+                  إدارة منصات EMIS / EOL – مركز الملكة رانيا العبد الله لتكنولوجيا
+                  التعليم والمعلومات
+                </h4>
+                <ul>
+                  <li>استلام ومراجعة بيانات تسجيل الطلبة من المديريات قبل رفعها على منصة بيرسون.</li>
+                  <li>تسجيل الطلبة بدقة على منصة Pearson Edexcel Online.</li>
+                  <li>مراجعة كشوف العلامات بالتنسيق مع المديرية ورفعها لطلب الشهادات.</li>
+                  <li>إدخال التحديثات المتعلقة بالمسارات والمدارس والشعب المستحدثة.</li>
+                  <li>تدريب المعنيين على التعامل مع المنصات وتحديثها حسب متطلبات المسارات.</li>
+                  <li>متابعة التقييمات لجميع المدارس، وضمان اعتمادها على المنصة.</li>
+                  <li>إعداد إحصائيات بالتعاون مع إدارة التعليم المهني.</li>
+                </ul>
+
+                <h4>قيم الامتحانات (في كل مدرسة)</h4>
+                <ul>
+                  <li>جمع بيانات الطلبة: الاسم، تاريخ الميلاد، البرنامج، وتاريخ الإنجاز.</li>
+                  <li>إرسال البيانات إلى مرشح الجودة ومدير المدرسة للمراجعة، ثم إلى مركز الملكة رانيا.</li>
+                  <li>الحفاظ على استدامة البيانات على المنصة (بيانات كادر المدرسة وبيانات الطلبة) والتطوير عليها باستمرار.</li>
+                </ul>
+
+                <h4>التدقيق الخارجي</h4>
+                <p>
+                  الهدف الرئيسي من عملية التدقيق الخارجي هو التدقيق على سير
+                  العملية التعليمية وجودتها وليست تقييم لأعمال الطلبة، وهي لضمان
+                  الامتثال لمعايير Pearson الدولية المعتمدة وضمان التحسين
+                  المستمر، مما يسهم في تطوير التعليم المهني والتقني وتحقيق أهدافه
+                  الاستراتيجية.
+                </p>
+
+                <h4>المدقق الخارجي من شركة بيرسون SV/EV</h4>
+                <ul>
+                  <li>تقييم جودة التعليم من خلال مراجعة البرامج التعليمية للتأكد من توافقها مع معايير الجودة المعتمدة من بيرسون.</li>
+                  <li>التحقق من الامتثال والتأكد من أن المدارس تلتزم بالسياسات والإجراءات المعمول بها في برنامج BTEC.</li>
+                  <li>جمع البيانات المتعلقة بالأداء الأكاديمي وتحليلها والنتائج لضمان تحقيق أهداف البرنامج.</li>
+                  <li>تقديم الملاحظات من خلال تقديم تقارير مفصلة عن النتائج والملاحظات إلى الإدارة، مع اقتراح تحسينات عند الحاجة.</li>
+                  <li>التواصل مع المعنيين في المدرسة والوزارة أن لزم الأمر.</li>
+                  <li>الاجتماع مع المعلمين والإدارة للحصول على رؤى حول تنفيذ البرنامج وتقديم الدعم.</li>
+                  <li>إعطاء توجيهات ونصائح حول أفضل الممارسات والمعايير المطلوبة عند الحاجة.</li>
+                  <li>مراقبة التحسين المستمر من خلال الزيارات المعتمدة في السنة ومتابعة التغييرات والتعديلات التي تم تنفيذها بناءً على الملاحظات السابقة للتأكد من التحسين المستمر.</li>
+                  <li>تقديم توصيات عند تحديد أي أخطار محتملة وتؤثر على جودة التعليم.</li>
+                </ul>
+              </div>
+            </details>
+
+            <details class="accordion-item glass" data-animate>
+              <summary>عملية التقييم (Assessment)</summary>
+              <div class="accordion-content">
+                <p>
+                  التقييم هو عملية قياس تعلم الطلبة، والتي تهدف إلى تقييم ما إذا
+                  كان الطالب قد حقق المعايير المطلوبة ومستوى تحقيقه. يُعتبر
+                  التقييم جزءًا من عملية تعلم الطلبة وينبغي أن يشعر الطلبة بأنهم
+                  مشاركون في عملية التقييم، بدلاً من الشعور بأن التقييم هو شيء
+                  يُفرض عليهم بعد اكتمال تعلمهم. الهدف هو دعم الطلبة في التعرف
+                  على إنجازاتهم وكيفية الاستمرار في التحسن والتقدم في المستقبل.
+                </p>
+                <p>
+                  كما هو الحال مع جميع جوانب التدريس والتعلم، يجب أن يساعد
+                  التقييم الطلبة على تطوير معرفتهم ومهاراتهم التقنية، سواء كان
+                  التقييم من خلال مشروع أو كتابة مقال أو أداء امتحان أو أي نوع
+                  آخر من الواجبات.
+                </p>
+                <ul>
+                  <li>التقييم ليس فقط عملية إعطاء نتائج بل يدعم الاعتراف بإنجازات الطلبة وتحسين الأداء.</li>
+                  <li>التقييم عملية مستمرة خلال فترة التدريس وتشمل ملاحظات ما بعد التقييم.</li>
+                  <li>التقييم جزء أساسي من استراتيجيات التدريس والتعلم.</li>
+                  <li>التقييم يجب أن يكون متسقًا مع النهج التعليمي العام بغض النظر عن نوع التقييم.</li>
+                  <li>التقييم الفعّال يعزز تجربة الطالب ورحلة التعلم.</li>
+                </ul>
+              </div>
+            </details>
+
+            <details class="accordion-item glass" data-animate>
+              <summary>التغذية الراجعة (Feedback)</summary>
+              <div class="accordion-content">
+                <p>
+                  التغذية الراجعة هي عنصر حاسم في دعم عملية تعلم الطلاب، فهي
+                  تساعدهم على فهم إنجازاتهم وتحديد المجالات التي يمكن تحسينها
+                  وتوجيه تقدمهم. يمكن تعزيز الممارسة الفكرية للطلاب من خلال
+                  التغذية الراجعة من المدرسين والأقران والتقييم الذاتي، مما يسهم
+                  في رحلتهم العامة للتعلم. التغذية الراجعة تشمل التقييمات
+                  التكوينية والتقييمات النهائية وتأتي من مصادر متعددة.
+                </p>
+                <h4>أهمية التغذية الراجعة</h4>
+                <ul>
+                  <li>التغذية الراجعة الفعّالة تلعب دورًا حاسمًا في التعليم المهني فهي توجه الطلاب نحو تحقيق معايير BTEC وتوقعات سوق العمل.</li>
+                  <li>التغذية الراجعة تمكن الطلاب من ضبط مهاراتهم وكفاءاتهم ومواءمتها مع متطلبات المهن الحقيقية.</li>
+                  <li>التغذية الراجعة تعزز من الممارسة التقييم الذاتي للطلاب وتحدد نقاط القوة ومجالات التطور.</li>
+                </ul>
+              </div>
+            </details>
+          </div>
+        </div>
+      </section>
+
+      <section class="cta-section">
+        <div class="cta-card glass container" data-animate>
+          <div>
+            <h2>جاهزون لاختيار المسار الأنسب؟</h2>
+            <p>اكتشفوا تفاصيل كل تخصص واختروا المسار الذي يناسب شغفكم.</p>
+          </div>
+          <a class="btn primary" href="#majors">استعرض التخصصات</a>
+        </div>
+      </section>
+    </main>
+
+    <button class="back-to-top" data-back-to-top aria-label="الرجوع للأعلى">
+      <i class="fa-solid fa-arrow-up"></i>
+    </button>
+
+    <script src="js/global.js" defer></script>
+    <script src="js/btec.js" defer></script>
+  </body>
+</html>

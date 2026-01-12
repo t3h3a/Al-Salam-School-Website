@@ -1,0 +1,70 @@
+.admin-login-page {
+  min-height: calc(100vh - var(--nav-height));
+  display: flex;
+  align-items: center;
+  padding: 3.5rem 0 5rem;
+}
+
+.admin-login-wrap {
+  display: grid;
+  grid-template-columns: 1.1fr 0.7fr;
+  gap: 2rem;
+  align-items: stretch;
+}
+
+.login-card,
+.login-side {
+  padding: 2rem;
+  display: grid;
+  gap: 1rem;
+}
+
+.login-header h1 {
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 3vw, 2.4rem);
+  margin-top: 0.6rem;
+}
+
+.admin-form {
+  display: grid;
+  gap: 1rem;
+}
+
+.form-group {
+  display: grid;
+  gap: 0.4rem;
+}
+
+.form-hint {
+  min-height: 1.2rem;
+}
+
+.login-footer {
+  margin-top: 0.5rem;
+}
+
+.login-side ul {
+  list-style: none;
+  display: grid;
+  gap: 0.6rem;
+  color: var(--muted);
+}
+
+.login-side li::before {
+  content: "•";
+  color: var(--accent);
+  margin-inline-end: 0.4rem;
+}
+
+@media (max-width: 1024px) {
+  .admin-login-wrap {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 425px) {
+  .login-card,
+  .login-side {
+    padding: 1.4rem;
+  }
+}

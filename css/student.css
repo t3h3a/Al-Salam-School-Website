@@ -1,0 +1,204 @@
+.student-hero {
+  padding: 4.5rem 0 2.5rem;
+}
+
+.student-hero-inner {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 2rem;
+  align-items: center;
+}
+
+.student-hero-media {
+  padding: 1rem;
+  border-radius: var(--radius-lg);
+}
+
+#student-cover {
+  width: 100%;
+  height: 320px;
+  object-fit: cover;
+  border-radius: 22px;
+}
+
+.student-hero-content h1 {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 3.4vw, 3rem);
+  margin: 0.8rem 0;
+}
+
+.student-hero-actions {
+  margin-top: 1rem;
+}
+
+.artworks-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 1.2rem;
+}
+
+.artwork-card {
+  background: var(--surface);
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  box-shadow: var(--shadow-soft);
+  display: grid;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.artwork-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow);
+}
+
+.artwork-media {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  background: rgba(15, 139, 141, 0.08);
+}
+
+.artwork-media img,
+.artwork-media video,
+.artwork-media iframe {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border: none;
+}
+
+.artwork-media video {
+  pointer-events: none;
+}
+
+.artwork-body {
+  padding: 0.9rem 1rem 1.2rem;
+  display: grid;
+  gap: 0.4rem;
+}
+
+.artwork-title {
+  font-weight: 700;
+}
+
+.artwork-meta {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 2.5rem 0;
+  color: var(--muted);
+}
+
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  z-index: 2000;
+}
+
+.modal.open {
+  display: flex;
+}
+
+.modal-content {
+  position: relative;
+  width: min(980px, 95vw);
+  max-height: 85vh;
+  overflow: auto;
+  padding: 2rem;
+}
+
+.modal-close {
+  position: absolute;
+  top: 1rem;
+  inset-inline-start: 1rem;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255, 255, 255, 0.75);
+  cursor: pointer;
+}
+
+.modal-media {
+  width: 100%;
+  border-radius: 18px;
+  overflow: hidden;
+  background: rgba(15, 139, 141, 0.08);
+  aspect-ratio: 16 / 9;
+}
+
+.modal-media img,
+.modal-media video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.modal-info {
+  margin-top: 1.2rem;
+  display: grid;
+  gap: 0.4rem;
+}
+
+.skeleton-grid {
+  opacity: 0.8;
+}
+
+.skeleton-card {
+  min-height: 240px;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.4),
+    rgba(255, 255, 255, 0.15)
+  );
+}
+
+.skeleton-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    120deg,
+    transparent,
+    rgba(255, 255, 255, 0.6),
+    transparent
+  );
+  animation: shimmer 1.6s infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+@media (max-width: 1024px) {
+  .student-hero-inner {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 425px) {
+  #student-cover {
+    height: 240px;
+  }
+
+  .modal-content {
+    padding: 1.4rem;
+  }
+}
