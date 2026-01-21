@@ -67,7 +67,8 @@
 .student-cover {
   width: 100%;
   aspect-ratio: 4 / 3;
-  object-fit: cover;
+  object-fit: contain;
+  background: rgba(var(--accent-rgb), 0.08);
 }
 
 .student-body {

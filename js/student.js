@@ -89,38 +89,77 @@ function getVideoPoster(url) {
   if (!url || !url.includes("/video/upload/")) {
     return "";
   }
-  return url.replace("/video/upload/", "/video/upload/so_0/");
+  const withTransform = url.replace(
+    "/video/upload/",
+    "/video/upload/so_0,f_jpg/"
+  );
+  return withTransform.replace(/\.[^/.]+(\?.*)?$/, ".jpg");
+}
+
+function isVideoUrl(url) {
+  return (
+    typeof url === "string" &&
+    (url.includes("/video/upload/") ||
+      /\.(mp4|webm|ogg)(\?.*)?$/i.test(url))
+  );
+}
+
+function resolveMediaUrls(artwork) {
+  const fallback = artwork.mediaUrl || "";
+  const rawVideo = artwork.videoUrl || "";
+  const rawImage = artwork.imageUrl || "";
+  const imageLooksVideo = isVideoUrl(rawImage);
+  const fallbackLooksVideo = isVideoUrl(fallback);
+  const videoUrl =
+    rawVideo ||
+    (imageLooksVideo ? rawImage : "") ||
+    (fallbackLooksVideo ? fallback : "");
+  const imageUrl =
+    (!imageLooksVideo && rawImage ? rawImage : "") ||
+    (!videoUrl && fallback ? fallback : "");
+  return { videoUrl, imageUrl };
 }
 
 function createMediaElement(artwork, variant) {
   const wrapper = document.createElement("div");
   wrapper.className = variant === "modal" ? "modal-media" : "artwork-media";
 
-  const mediaType = artwork.mediaType || (artwork.videoUrl ? "video" : "image");
-  if (mediaType === "video") {
-    const videoUrl = artwork.videoUrl || artwork.mediaUrl;
-    if (videoUrl) {
-      const video = document.createElement("video");
-      video.src = videoUrl;
-      video.controls = variant === "modal";
-      video.preload = "metadata";
-      video.playsInline = true;
-      if (variant !== "modal") {
-        video.muted = true;
-        const poster = getVideoPoster(videoUrl);
-        if (poster) {
-          video.poster = poster;
-        }
+  const mediaType = String(artwork.mediaType || "");
+  const resolved = resolveMediaUrls(artwork);
+  const treatAsVideo =
+    mediaType === "video" || (resolved.videoUrl && !resolved.imageUrl);
+
+  if (treatAsVideo && resolved.videoUrl) {
+    wrapper.classList.add("is-video");
+    const video = document.createElement("video");
+    video.src = resolved.videoUrl;
+    video.controls = variant === "modal";
+    video.preload = "metadata";
+    video.playsInline = true;
+    video.setAttribute("playsinline", "");
+    if (variant !== "modal") {
+      video.muted = true;
+      video.loop = true;
+      video.autoplay = true;
+      const poster = getVideoPoster(resolved.videoUrl);
+      if (poster) {
+        video.poster = poster;
       }
-      wrapper.appendChild(video);
+    }
+    wrapper.appendChild(video);
+    if (variant !== "modal") {
+      const overlay = document.createElement("div");
+      overlay.className = "video-overlay";
+      overlay.innerHTML =
+        '<span class="video-chip">فيديو</span><span class="video-play"><i class="fa-solid fa-play"></i></span>';
+      wrapper.appendChild(overlay);
     }
     return wrapper;
   }
 
-  const imageUrl = artwork.imageUrl || artwork.mediaUrl;
-  if (imageUrl) {
+  if (resolved.imageUrl) {
     const img = document.createElement("img");
-    img.src = imageUrl;
+    img.src = resolved.imageUrl;
     img.alt = artwork.title || "عمل فني";
     img.loading = "lazy";
     img.decoding = "async";

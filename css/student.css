@@ -17,8 +17,9 @@
 #student-cover {
   width: 100%;
   height: 320px;
-  object-fit: cover;
+  object-fit: contain;
   border-radius: 22px;
+  background: rgba(var(--accent-rgb), 0.08);
 }
 
 .student-hero-content h1 {
@@ -60,17 +61,64 @@
   background: rgba(15, 139, 141, 0.08);
 }
 
+.artwork-media.is-video {
+  background: rgba(15, 19, 20, 0.55);
+}
+
 .artwork-media img,
 .artwork-media video,
 .artwork-media iframe {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
   border: none;
 }
 
 .artwork-media video {
   pointer-events: none;
+}
+
+.artwork-media.is-video video {
+  filter: saturate(1.08) contrast(1.04);
+}
+
+.video-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  background: linear-gradient(
+    160deg,
+    rgba(15, 19, 20, 0.25),
+    rgba(15, 19, 20, 0.05)
+  );
+}
+
+.video-chip {
+  position: absolute;
+  inset-inline-end: 12px;
+  top: 12px;
+  padding: 0.3rem 0.7rem;
+  border-radius: 999px;
+  background: rgba(15, 19, 20, 0.7);
+  color: #fff;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+}
+
+.video-play {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: rgba(15, 19, 20, 0.6);
+  color: #fff;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+  font-size: 1.05rem;
 }
 
 .artwork-body {
@@ -141,7 +189,7 @@
 .modal-media video {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
 }
 
 .modal-info {
