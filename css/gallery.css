@@ -43,19 +43,19 @@
 }
 
 .gallery-grid {
-  column-count: 4;
-  column-gap: 1.5rem;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
 }
 
 .student-card {
-  break-inside: avoid;
-  margin-bottom: 1.5rem;
   border-radius: var(--radius-md);
   background: var(--surface);
   border: 1px solid rgba(255, 255, 255, 0.45);
   box-shadow: var(--shadow-soft);
   overflow: hidden;
   display: grid;
+  grid-template-rows: auto 1fr;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
@@ -67,8 +67,10 @@
 .student-cover {
   width: 100%;
   aspect-ratio: 4 / 3;
-  object-fit: contain;
+  object-fit: cover;
   background: rgba(var(--accent-rgb), 0.08);
+  display: block;
+  overflow: hidden;
 }
 
 .student-body {
@@ -144,7 +146,7 @@
 
 @media (max-width: 1440px) {
   .gallery-grid {
-    column-count: 3;
+    grid-template-columns: repeat(3, 1fr);
   }
 }
 
@@ -154,22 +156,45 @@
   }
 
   .gallery-grid {
-    column-count: 3;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.2rem;
   }
 }
 
 @media (max-width: 768px) {
+  .gallery-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
   .controls-grid {
     grid-template-columns: 1fr;
   }
-
-  .gallery-grid {
-    column-count: 2;
-  }
 }
 
-@media (max-width: 425px) {
+@media (max-width: 480px) {
   .gallery-grid {
-    column-count: 1;
+    grid-template-columns: 1fr;
+    gap: 0.8rem;
+  }
+
+  .student-card {
+    margin: 0;
+  }
+
+  .student-cover {
+    aspect-ratio: 3 / 2;
+  }
+
+  .student-body {
+    padding: 0.8rem;
+  }
+
+  .gallery-hero {
+    padding: 3rem 0 1.5rem;
+  }
+
+  .gallery-hero h1 {
+    font-size: clamp(1.5rem, 5vw, 2.2rem);
   }
 }

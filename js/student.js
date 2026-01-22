@@ -134,6 +134,7 @@ function createMediaElement(artwork, variant) {
     const video = document.createElement("video");
     video.src = resolved.videoUrl;
     video.controls = variant === "modal";
+    video.controlsList = "download";
     video.preload = "metadata";
     video.playsInline = true;
     video.setAttribute("playsinline", "");

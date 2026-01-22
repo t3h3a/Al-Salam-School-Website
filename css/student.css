@@ -17,9 +17,10 @@
 #student-cover {
   width: 100%;
   height: 320px;
-  object-fit: contain;
+  object-fit: cover;
   border-radius: 22px;
   background: rgba(var(--accent-rgb), 0.08);
+  display: block;
 }
 
 .student-hero-content h1 {
@@ -70,16 +71,39 @@
 .artwork-media iframe {
   width: 100%;
   height: 100%;
-  object-fit: contain;
+  object-fit: cover;
   border: none;
+  display: block;
 }
 
 .artwork-media video {
   pointer-events: none;
+  background: rgba(15, 19, 20, 0.3);
 }
 
 .artwork-media.is-video video {
   filter: saturate(1.08) contrast(1.04);
+}
+
+/* Fullscreen styles for videos */
+video:fullscreen {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* WebKit fullscreen */
+video:-webkit-full-screen {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* Firefox fullscreen */
+video:-moz-full-screen {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 
 .video-overlay {
@@ -183,6 +207,9 @@
   overflow: hidden;
   background: rgba(15, 139, 141, 0.08);
   aspect-ratio: 16 / 9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .modal-media img,
@@ -190,6 +217,7 @@
   width: 100%;
   height: 100%;
   object-fit: contain;
+  display: block;
 }
 
 .modal-info {
@@ -239,14 +267,96 @@
   .student-hero-inner {
     grid-template-columns: 1fr;
   }
+
+  .artworks-grid {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  }
 }
 
-@media (max-width: 425px) {
+@media (max-width: 768px) {
+  .student-hero {
+    padding: 3rem 0 2rem;
+  }
+
+  .student-hero-inner {
+    gap: 1.5rem;
+  }
+
+  .student-hero-media {
+    padding: 0.8rem;
+  }
+
   #student-cover {
-    height: 240px;
+    height: 280px;
+    border-radius: 16px;
+  }
+
+  .artworks-grid {
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 1rem;
   }
 
   .modal-content {
-    padding: 1.4rem;
+    width: min(95vw, 100%);
+    padding: 1.2rem;
+    max-height: 90vh;
+  }
+
+  .modal-media {
+    aspect-ratio: 4 / 3;
+  }
+}
+
+@media (max-width: 480px) {
+  .student-hero {
+    padding: 2rem 0 1.5rem;
+  }
+
+  .student-hero-inner {
+    gap: 1rem;
+  }
+
+  .student-hero-media {
+    padding: 0.5rem;
+  }
+
+  #student-cover {
+    height: 240px;
+    border-radius: 12px;
+  }
+
+  .student-hero-content h1 {
+    font-size: clamp(1.4rem, 5vw, 2rem);
+  }
+
+  .artworks-grid {
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 0.8rem;
+  }
+
+  .artwork-body {
+    padding: 0.7rem 0.8rem;
+  }
+
+  .artwork-title {
+    font-size: 0.9rem;
+  }
+
+  .artwork-meta {
+    font-size: 0.8rem;
+  }
+
+  .modal-content {
+    padding: 1rem;
+  }
+
+  .modal-media {
+    aspect-ratio: 3 / 2;
+  }
+
+  .modal-close {
+    width: 36px;
+    height: 36px;
+    top: 0.5rem;
   }
 }
