@@ -48,11 +48,17 @@ function setLoading(isLoading) {
     skeleton.style.display = isLoading ? "grid" : "none";
   }
   if (gallery) {
-    gallery.style.display = isLoading ? "grid" : "none";
+    gallery.style.display = isLoading ? "none" : "grid";
   }
 }
 
 function setEmpty(message) {
+  if (gallery) {
+    gallery.style.display = "none";
+  }
+  if (skeleton) {
+    skeleton.style.display = "none";
+  }
   if (emptyState) {
     emptyState.hidden = false;
     emptyState.textContent = message;
@@ -129,6 +135,21 @@ function createMediaElement(artwork, variant) {
   const treatAsVideo =
     mediaType === "video" || (resolved.videoUrl && !resolved.imageUrl);
 
+  // Add loading placeholder
+  if (variant !== "modal") {
+    const loadingDiv = document.createElement("div");
+    loadingDiv.style.position = "absolute";
+    loadingDiv.style.inset = "0";
+    loadingDiv.style.display = "flex";
+    loadingDiv.style.alignItems = "center";
+    loadingDiv.style.justifyContent = "center";
+    loadingDiv.style.backgroundColor = "rgba(200, 200, 200, 0.1)";
+    loadingDiv.style.zIndex = "1";
+    loadingDiv.className = "media-loading";
+    loadingDiv.innerHTML = '<span style="opacity: 0.5;">⏳</span>';
+    wrapper.appendChild(loadingDiv);
+  }
+
   if (treatAsVideo && resolved.videoUrl) {
     wrapper.classList.add("is-video");
     const video = document.createElement("video");
@@ -138,6 +159,9 @@ function createMediaElement(artwork, variant) {
     video.preload = "metadata";
     video.playsInline = true;
     video.setAttribute("playsinline", "");
+    video.style.position = "relative";
+    video.style.zIndex = "2";
+    
     if (variant !== "modal") {
       video.muted = true;
       video.loop = true;
@@ -146,11 +170,30 @@ function createMediaElement(artwork, variant) {
       if (poster) {
         video.poster = poster;
       }
+      
+      // Remove loading indicator when video loads
+      video.addEventListener("loadstart", function () {
+        const loading = wrapper.querySelector(".media-loading");
+        if (loading) {
+          loading.style.display = "none";
+        }
+      });
+      
+      video.addEventListener("error", function () {
+        const loading = wrapper.querySelector(".media-loading");
+        if (loading) {
+          loading.textContent = "❌ خطأ في تحميل الفيديو";
+          loading.style.display = "flex";
+        }
+      });
     }
+    
     wrapper.appendChild(video);
+    
     if (variant !== "modal") {
       const overlay = document.createElement("div");
       overlay.className = "video-overlay";
+      overlay.style.zIndex = "3";
       overlay.innerHTML =
         '<span class="video-chip">فيديو</span><span class="video-play"><i class="fa-solid fa-play"></i></span>';
       wrapper.appendChild(overlay);
@@ -164,8 +207,35 @@ function createMediaElement(artwork, variant) {
     img.alt = artwork.title || "عمل فني";
     img.loading = "lazy";
     img.decoding = "async";
+    img.style.position = "relative";
+    img.style.zIndex = "2";
+    
+    // Remove loading indicator when image loads
+    img.addEventListener("load", function () {
+      const loading = wrapper.querySelector(".media-loading");
+      if (loading) {
+        loading.style.display = "none";
+      }
+    });
+    
+    img.addEventListener("error", function () {
+      const loading = wrapper.querySelector(".media-loading");
+      if (loading) {
+        loading.textContent = "❌ خطأ في تحميل الصورة";
+        loading.style.display = "flex";
+      }
+    });
+    
     wrapper.appendChild(img);
+  } else if (variant !== "modal") {
+    // Show error if no media found
+    const loading = wrapper.querySelector(".media-loading");
+    if (loading) {
+      loading.textContent = "❌ لا توجد صورة أو فيديو";
+      loading.style.display = "flex";
+    }
   }
+  
   return wrapper;
 }
 
@@ -217,10 +287,20 @@ function renderArtworks(artworks) {
     return;
   }
   gallery.innerHTML = "";
+  
   if (artworks.length === 0) {
     setEmpty("لا توجد أعمال مضافة لهذه الطالبة بعد.");
     return;
   }
+
+  // Hide empty state when we have artworks
+  if (emptyState) {
+    emptyState.hidden = true;
+  }
+  if (skeleton) {
+    skeleton.style.display = "none";
+  }
+  gallery.style.display = "grid";
 
   artworks.forEach(function (art) {
     const card = document.createElement("div");
