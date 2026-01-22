@@ -35,8 +35,10 @@
 
 .artworks-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
   gap: 1.2rem;
+  width: 100%;
+  padding: 0;
 }
 
 .artwork-card {
@@ -287,7 +289,8 @@ video:-moz-full-screen {
   }
 
   .artworks-grid {
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 1rem;
   }
 }
 
@@ -310,8 +313,8 @@ video:-moz-full-screen {
   }
 
   .artworks-grid {
-    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-    gap: 1rem;
+    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+    gap: 0.8rem;
   }
 
   .modal-content {
@@ -348,7 +351,7 @@ video:-moz-full-screen {
   }
 
   .artworks-grid {
-    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    grid-template-columns: 1fr 1fr;
     gap: 0.8rem;
   }
 
@@ -376,5 +379,32 @@ video:-moz-full-screen {
     width: 36px;
     height: 36px;
     top: 0.5rem;
+  }
+}
+
+@media (max-width: 360px) {
+  .artworks-grid {
+    grid-template-columns: 1fr;
+    gap: 0.6rem;
+  }
+
+  .artwork-card {
+    min-height: auto;
+  }
+
+  .artwork-media {
+    min-height: 120px;
+  }
+
+  .artwork-title {
+    font-size: 0.85rem;
+  }
+
+  .artwork-meta {
+    font-size: 0.75rem;
+  }
+
+  .artwork-body {
+    padding: 0.6rem 0.7rem;
   }
 }
